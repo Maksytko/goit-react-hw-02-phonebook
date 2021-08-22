@@ -1,9 +1,10 @@
 import Contact from "../Contact/Contact";
 import propTypes from "prop-types";
+import style from "./ContactList.module.css";
 
 function ContactList({ contacts, deleteContactFromList }) {
   return (
-    <ul>
+    <ul className={style.list}>
       {contacts.map((contact) => {
         return (
           <Contact

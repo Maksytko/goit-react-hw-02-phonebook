@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { v4 as uuidv } from "uuid";
 import propTypes from "prop-types";
+import style from "./ContactForm.module.css";
 
 class ContactForm extends Component {
   constructor({ contacts, addToContactList }) {
@@ -50,9 +51,10 @@ class ContactForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleFormSubmit}>
-        <label>
-          Name
+        <label className={style.label}>
+          <span>Name</span>
           <input
+            className={style.input}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -61,9 +63,10 @@ class ContactForm extends Component {
             onChange={this.handleInputChange}
           />
         </label>
-        <label>
-          Number
+        <label className={style.label}>
+          <span>Number</span>
           <input
+            className={style.input}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
