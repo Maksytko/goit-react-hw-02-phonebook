@@ -1,37 +1,26 @@
 import { Component } from "react";
-import { v4 as uuidv } from "uuid";
 import propTypes from "prop-types";
 import style from "./ContactForm.module.css";
 
 class ContactForm extends Component {
-  constructor({ contacts, addToContactList }) {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       name: "",
       number: "",
-      contacts: contacts,
     };
 
-    this.addToContactList = addToContactList;
+    this.addToContactList = props.addToContactList;
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
+    const nameForCheck = this.state.name;
+    const number = this.state.number;
 
-    if (
-      this.state.contacts.find((contact) => contact.name === this.state.name)
-    ) {
-      return alert(`${this.state.name} is already in contacts!`);
-    }
-
-    console.log(this.state.filter);
-
-    this.addToContactList({
-      id: uuidv(),
-      name: this.state.name,
-      number: this.state.number,
-    });
+    this.setState({ name: "", number: "" });
+    this.addToContactList(nameForCheck, number);
   };
 
   handleInputChange = (event) => {
@@ -56,6 +45,7 @@ class ContactForm extends Component {
           <input
             className={style.input}
             type="text"
+            value={this.state.name}
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
@@ -68,6 +58,7 @@ class ContactForm extends Component {
           <input
             className={style.input}
             type="tel"
+            value={this.state.number}
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
